@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9 d?c. 2013 16:31:43 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="druide.hibernate.pojo.Utilisateur" table="utilisateur" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="nom" type="string">
+            <column name="nom" length="45" not-null="true" />
+        </property>
+        <property name="prenom" type="string">
+            <column name="prenom" length="45" not-null="true"/>
+        </property>
+        <property name="login" type="string">
+            <column name="login" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="motDePasse" type="string">
+            <column name="mot_de_passe" length="45" not-null="true" />
+        </property>
+        <many-to-one name="rang" class="druide.hibernate.pojo.Rang" fetch="select">
+            <column name="rang_id" />
+        </many-to-one>
+        <property name="email" type="string">
+            <column name="email" length="45"/>
+        </property>
+        <property name="nbPoints" type="int">
+            <column name="points" not-null="true" />
+        </property>
+        <property name="nbPointsRestantsAAttribuer" type="int">
+            <column name="points_restants" not-null = "true" />
+        </property>
+        <set inverse="true" name="cagnottes">
+            <key>
+              <column name="createur" not-null="true"/>
+            </key>
+            <one-to-many class="druide.hibernate.pojo.Cagnotte"/>
+        </set>
+    </class>
+</hibernate-mapping>

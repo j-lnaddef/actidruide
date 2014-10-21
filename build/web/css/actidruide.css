@@ -1,0 +1,223 @@
+
+#connexion {
+    width: 230px;
+    min-height: 150px;
+    margin : auto;
+    padding : 50px;
+}
+
+#infos_connexion .deconnexion {
+    float : right;
+    background-image: url("../img/deconnexion.png");
+    background-size: 27px 27px;
+    background-repeat: no-repeat;
+    min-width: 27px;
+    min-height: 27px;
+    margin-top: 70px;
+    margin-right: 200px;
+    cursor: pointer;
+}
+
+#infos_connexion .password {
+    float : right;
+    background-image: url("../img/password.jpg");
+    background-size: 27px 27px;
+    background-repeat: no-repeat;
+    min-width: 27px;
+    min-height: 27px;
+    margin-top: 70px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#infos_connexion #bouton_guide_utilisateur {
+    float : right;
+    background-image: url("../img/guide.png");
+    background-size: 27px 27px;
+    background-repeat: no-repeat;
+    min-width: 27px;
+    min-height: 27px;
+    margin-top: 70px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.lien {
+    cursor: pointer;
+}
+
+.lien.inactif {
+    cursor : initial !important;
+    opacity: 0.5 !important;
+}
+
+/* Le conteneur général */
+.conteneur_3d {
+    width: 332px;
+    margin: auto;
+    margin-top : 50px;
+    margin-bottom : 50px;
+}
+
+#footer {
+    text-align: center;
+}
+
+#main {
+    width : 900px;
+    height : 700px;
+    border : 1px solid;
+    margin : 20px;
+    padding : 0px;
+}
+
+#header {
+    text-align: center;
+}
+
+#header .banniere {
+    width: 1200px;
+    margin: auto;
+}
+
+#header .banniere .logo_appli {
+    background-position: center;
+    margin: auto;
+    width: 627px;
+    height : 155px;
+    background-image: url("../img/banniere_actidruide-.png");
+    background-repeat: no-repeat;
+}
+
+#bandeau_droite {
+    width : 300px;
+    float : right;
+    margin-top : 20px;
+    margin-right : 20px;
+}
+
+#bandeau_gauche {
+    text-align:center;
+    width : 300px;
+    float : left;
+}
+
+#bandeau_haut {
+    padding : 20px;
+}
+
+#contenu {
+    margin : 20px;
+}
+
+#apercu_classement {
+    margin : auto;
+}
+
+.nb_points {
+    width : 300px;
+    text-align: left;
+    font-size: 30px;
+    color : green;
+    font-weight: bold;
+}
+
+.rang {
+    width : 300px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.nb_points_restants {
+    width : 300px;
+    text-align: right;
+    font-size: 20px;
+    color : #002855;
+}
+
+table.centre {
+    margin : auto;
+}
+
+.ligne_evenement {
+    height: 68px;
+    width: 900px;
+    border: 1px solid;
+    padding : 5px;
+}
+
+.source{
+    font-size: 20px;
+    font-weight: bold;
+    color : orange;
+}
+
+.beneficiaire {
+    font-size: 20px;
+    font-weight: bold;
+    color : green;
+}
+
+.victime {
+    font-size: 20px;
+    font-weight: bold;
+    color : red;
+}
+
+.points {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.raison {
+    font-weight: bold;
+}
+
+.form_table {
+    border : 1px solid grey;
+    margin-bottom: 20px;
+}
+
+.lien {
+    text-decoration: underline;
+}
+
+.lien:hover {
+    color:deeppink;
+    cursor:pointer;
+}
+
+/* Bouton grisé */
+.bouton_inactif {
+    opacity: 0.5;
+    filter:alpha(opacity=50); /* pour les versions d'IE8 ou inférieures */
+    cursor: auto !important;
+}
+
+/* div grisée */
+.div_inactive {
+    opacity: 0.5;
+}
+
+.div_inactive span { 
+    z-index:10;
+    display:none; 
+    padding:14px 20px; 
+    margin-top:50px; 
+    margin-left:28px; 
+    width:300px; 
+    line-height:16px; 
+} 
+
+.div_inactive:hover span{ 
+    display:inline; 
+    position:absolute; 
+    color:#111; 
+    border:1px solid #DCA; 
+    background:#fffAF0;} .callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;
+}
+
+.bouton {
+    cursor : pointer;
+}

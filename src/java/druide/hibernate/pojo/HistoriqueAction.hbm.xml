@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9 d?c. 2013 16:31:43 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="druide.hibernate.pojo.HistoriqueAction" table="historique_action" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="action" type="string">
+            <column name="action" length="45" not-null="true" unique="false" />
+        </property>
+        <many-to-one name="source" class="druide.hibernate.pojo.Utilisateur" fetch="select">
+            <column name="source" />
+        </many-to-one>
+        <many-to-one name="cible" class="druide.hibernate.pojo.Utilisateur" fetch="select">
+            <column name="cible" />
+        </many-to-one>
+        <property name="nombrePoints" type="int">
+            <column name="nombre_points" not-null="false" />
+        </property>
+        <property name="raison" type="string">
+            <column name="raison" length="500" not-null="false" unique="false" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

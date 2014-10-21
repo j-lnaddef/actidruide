@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+    
+    <constant name="struts.multipart.maxSize" value="30000000" />
+ 
+    <!-- Package par défaut -->
+    <package name="defaut" namespace="" extends="struts-default">
+        
+        <!-- Type de retour par défaut des actions -->
+        <result-types>
+            <!-- Freemarker utilisé comme type de retour par défaut pour tous les packages -->
+            <result-type name="freemarker" default="true" class="org.apache.struts2.views.freemarker.FreemarkerResult" />
+        </result-types>
+        
+        <!-- Intercepteurs par defaut -->
+        <interceptors>
+            <interceptor name="utilisateurIntercepteur" class="druide.intercepteurs.UtilisateurIntercepteur" />
+            <interceptor name="exceptionIntercepteur" class="druide.intercepteurs.ExceptionIntercepteur" />
+    
+            <interceptor-stack name="druideStack">
+                <interceptor-ref name="exceptionIntercepteur"/>
+                <interceptor-ref name="utilisateurIntercepteur"/>
+                <interceptor-ref name="defaultStack">
+                    <param name="params.paramNameMaxLength">255</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        
+        <!-- Pile d'intercepteurs par defaut -->
+        <default-interceptor-ref name="druideStack"/>
+        
+        <!-- Resultats globaux, valables pour toutes les actions -->
+        <global-results>
+            <!-- Résultat Ajax affiché en JSON -->
+            <result name="ajax_json" >/WEB-INF/pages/ajax_json.ftl</result>
+            <!-- Donnée non trouvée, page 404 -->
+            <result name="non_trouve" >/WEB-INF/pages/erreur/erreur.ftl</result>
+            <!-- Permission refusée -->
+            <result name="permission" >/WEB-INF/pages/erreur/erreur.ftl</result>
+            <!-- Page d'erreur par défaut -->
+            <!--<result name="error" >/WEB-INF/pages/erreur/erreur.ftl</result>-->
+            <!-- Page d'erreur lorsque les paramètres envoyées sont au mauvais format (ex: "ABC" pour un champ entier) -->
+            <result name="input" type="httpheader">
+                <param name="error">400</param>
+                <param name="errorMessage">La requête envoyée au serveur contient des paramètres invalides.</param>
+            </result>
+            <!-- Page d'erreur lors d'un appel Ajax -->
+            <result name="ajax_erreur" >/WEB-INF/pages/erreur/detail_erreur.ftl</result>
+            <result name="texte" type="httpheader">
+                <param name="status">200</param>
+                <param name="contentType">text/plain</param>
+            </result>
+            <!-- Affichage de images -->
+            <result name="image" type="stream">
+                <param name="contentType">image/jpeg</param>
+                <param name="inputName">fluxFichierTelechargement</param>
+                <param name="allowCaching">true</param>
+                <param name="contentDisposition">inline;filename=${nomFichierTelechargement}</param>
+            </result>
+        </global-results>
+    </package>
+    
+    <!-- Package racine -->
+    <package name="racine" namespace="/" extends="defaut">
+                
+        <!-- Action par défaut -->
+        <action name="" class="druide.action.DefautAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">${nomAction}</param>
+                <param name="namespace">${nomNamespace}</param>
+            </result>
+            <result name="login" type="redirectAction">
+                <param name="actionName"> login </param>
+                <param name="namespace">/</param>
+            </result>
+        </action>
+        
+        <!-- Page de login -->
+        <action name="login" class="druide.action.SessionUtilisateurAction">
+            <result>/WEB-INF/pages/login.ftl</result>
+        </action>
+        
+        <!-- Authentification de l'utilisateur -->
+        <action name="authentifier" class="druide.action.SessionUtilisateurAction" method="authentifier">
+            <result name="success" type="redirectAction">
+                <param name="actionName"> accueil </param>
+                <param name="namespace">/</param>
+            </result>
+            <result name="error">/WEB-INF/pages/login.ftl</result>
+        </action>
+        
+        <!-- Déconnexion de l'utilisateur -->
+        <action name="deconnexion" class="druide.action.SessionUtilisateurAction" method="deconnecter">
+            <result name="success">/WEB-INF/pages/login.ftl</result>
+        </action>
+        
+        <!-- Don ou retrait de points -->
+        <action name="donner_retirer_points" class="druide.action.DonnerRetirerPointsAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName"> accueil </param>
+                <param name="namespace">/</param>
+            </result>
+            <result name="login" type="redirectAction">
+                <param name="actionName"> login </param>
+                <param name="namespace">/</param>
+            </result>
+        </action>
+        
+        <!-- Création de cagnotte -->
+        <action name="creation_cagnotte" class="druide.action.CreationCagnotteAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName"> accueil </param>
+                <param name="namespace">/</param>
+            </result>
+            <result name="login" type="redirectAction">
+                <param name="actionName"> login </param>
+                <param name="namespace">/</param>
+            </result>
+        </action>
+        
+        <!-- Page principale -->
+        <action name="accueil" class="druide.action.PagePrincipaleAction">
+            <result name="login" type="redirectAction">
+                <param name="actionName"> login </param>
+                <param name="namespace">/</param>
+            </result>
+            <result>/WEB-INF/pages/actidruide.ftl</result>
+        </action>
+        
+        <!-- Affiche la popup du classement -->
+        <action name="voir_classement" class="druide.action.ClassementAction">
+            <result name="login" type="redirectAction">
+                <param name="actionName"> login </param>
+                <param name="namespace">/</param>
+            </result>
+        </action>
+        
+        <action name="consulter_cagnotte" class="druide.action.CagnotteAction">
+            <result name="login" type="redirectAction">
+                <param name="actionName"> login </param>
+                <param name="namespace">/</param>
+            </result>
+        </action>
+        
+        <action name="ajouter_points_cagnotte" class="druide.action.CagnotteAction" method="ajouterPoints">
+            <result name="success" type="redirectAction">
+                <param name="actionName"> accueil </param>
+                <param name="namespace">/</param>
+            </result>
+            <result name="login" type="redirectAction">
+                <param name="actionName"> login </param>
+                <param name="namespace">/</param>
+            </result>
+        </action>
+        
+        <action name="consulter_cagnotte_admin" class="druide.action.AttributionCagnotteAction">
+        </action>
+        
+        <action name="attribuer_cagnotte" class="druide.action.AttributionCagnotteAction" method="attribuerCagnotte">
+            <result name="success" type="redirectAction">
+                <param name="actionName"> administrer </param>
+                <param name="namespace">/</param>
+            </result>
+        </action>
+        
+        <action name="initialisation_changement_mdp" class="druide.action.ChangementMdpAction">
+        </action>
+        
+        <action name="modification_mdp" class="druide.action.ChangementMdpAction" method="modifierMdp">
+        </action>
+        
+        <action name="administrer" class="druide.action.ValidationCagnottesAction">
+            <result>/WEB-INF/pages/administration/validation_cagnottes.ftl</result>
+        </action>
+    </package>
+    
+    <!-- Enlever le ".action" dans les URL d'action Struts, sans interférer avec les ressources statiques (css/js) -->
+    <constant name="struts.action.extension" value=","/> 
+    
+    <!-- Pour permettre l'utilisation de parametre dans les actions, avec des wildcards -->
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
+    <constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
+    
+    <!-- Mode de Debug. Toujours a "false" en environnement de production -->
+    <constant name="struts.devMode" value="false" />	
+    
+    <!-- Permet d'indiquer notre theme et le fichier de themes -->
+    <constant name="struts.date.format" value="dd/MM/yyyy" />
+    <constant name="struts.ui.theme" value="defaut" />
+    <constant name="struts.ui.templateDir" value="WEB-INF/themes" />
+    
+</struts>

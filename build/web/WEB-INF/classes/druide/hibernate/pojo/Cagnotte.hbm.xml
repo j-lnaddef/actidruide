@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9 d?c. 2013 16:31:43 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="druide.hibernate.pojo.Cagnotte" table="cagnotte" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="titre" type="string">
+            <column name="titre" length="100" not-null="false" unique="false" />
+        </property>
+        <property name="nombrePoints" type="int">
+            <column name="nombre_points" not-null="true" />
+        </property>
+        <many-to-one name="createur" class="druide.hibernate.pojo.Utilisateur" fetch="select">
+            <column name="createur" />
+        </many-to-one>
+        <many-to-one name="beneficiaire" class="druide.hibernate.pojo.Utilisateur" fetch="select">
+            <column name="beneficiaire" />
+        </many-to-one>
+        <property name="actionARealiser" type="string">
+            <column name="action_a_realiser" length="500" not-null="false" unique="false" />
+        </property>
+        <property name="dateEcheance" type="date">
+            <column name="date_echeance"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9 d?c. 2013 16:31:43 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="druide.hibernate.pojo.Permission" table="permission" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="nom" type="string">
+            <column name="nom" length="100" not-null="true" unique="true" />
+        </property>
+        <set name="rangs" inverse="false" table="rang_permission">
+            <key>
+                <column name="permission_id" not-null="true" />
+            </key>
+            <many-to-many entity-name="druide.hibernate.pojo.Rang">
+                <column name="rang_id" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

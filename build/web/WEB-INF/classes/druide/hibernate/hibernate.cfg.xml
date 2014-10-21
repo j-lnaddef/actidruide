@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- Les parametres de connexion a la base sont variables (selon l'environnement) : ceux-ci sont
+             definis en dehors de ce fichier de configuration -->
+    <property name="hibernate.dialect">druide.hibernate.DruideMySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+    <property name="current_session_context_class">thread</property>
+    <!-- Comportement pour la conservation des tables -->
+    <property name="hbm2ddl.auto">validate</property>
+    <!-- Affiche les logs SQL -->
+    <property name="show_sql">true</property>
+    <!-- Mapping -->
+    <mapping resource="druide/hibernate/pojo/Utilisateur.hbm.xml"/>
+    <mapping resource="druide/hibernate/pojo/Rang.hbm.xml"/>
+    <mapping resource="druide/hibernate/pojo/Permission.hbm.xml"/>
+    <mapping resource="druide/hibernate/pojo/HistoriqueAction.hbm.xml"/>
+    <mapping resource="druide/hibernate/pojo/Cagnotte.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>
